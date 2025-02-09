@@ -1,0 +1,15 @@
+//dekho at first we neet to create a server , a server is generally used to send a response for a request. Or we can say server ka main kaam hota hai to listen the request.
+
+//Request can be of many types out of which most common is get.
+
+//To create a server we use expressJs.
+
+//So at the very first we neet to create an empty nodeJs application which can be done by writing this 'npm init' command in the terminal. Generally used to initialze the application.
+
+//usually npm init -y se directly ban jati hai (it generally says yes to all but this is our first lec so we will start with npm init). To ab yaha se just give name to package of your choice then keep hitting enter , you may add description, author name if you want , entry point here is start.js by default (means start.js file mein hi humara code database se connect ho jayega).Now it will create a package.json file
+
+//now in package.json file in script block we can create our own commands. so in scripts we write our own command "start" : "node index.js" this is a command that will be used to start the application. Simply when you will type node index.js file will run.
+
+//form here move to index.js file
+
+//Note-: to run you application write npm run start or node index.js

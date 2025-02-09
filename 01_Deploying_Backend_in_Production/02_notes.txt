@@ -1,0 +1,11 @@
+ek package hai dotenv
+
+you can install it by npm i dotenv
+
+After installing this package create a file .env In this file we can add global constants like port, database url, db password and all these stuff. Dekho jab hum production mein kisi bhi app ko leke jaake hai to it is not necessary that jis bhi system mein ye application run ho waha port 3000 free ho ya fir we don't want to disclose information like db password and all that stuff. So for that we have this dotenv package through which we can create a .env file.
+
+
+//now while pushing this code to github we sometimes need to not push private data like password and all that stuff or like api key for that we create a .gitignore file and inside this file type .env (now env file will not be pushed to the github repo) then we can write node modules(khali mein kyu hi push kare inhe , easily to install ho jate hai npm i se).
+
+
+// now jaise hum push karte hai project ko git mein simply waise hi kare , aur jisse bhi push na karna ho usse bas .gitignore file mein mention kar de saare kaam apne aap ho jayega.
