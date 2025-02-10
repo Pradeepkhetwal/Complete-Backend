@@ -1,0 +1,31 @@
+This frontend application is created using vite 
+
+At first we write npm create vite@latest .
+command (. ko isliye likha hai taki directly folder structure frontend folder k andar aa jaye koi naya folder na bane)
+
+then after saying yes to all we select our framework react and javascript as the language.
+
+now as we get package.json file we directly write the command npm i in the terminal.
+
+Now we goto App.jsx file then we edited the function App() according to our requirement.
+
+Now after writing this line  const [jokes, setJokes] = useState([]);
+
+and using map function we still don't get the jokes in the frontend because koi bhi request nahi gyi hai to backend.
+
+So for that we will install axios package by command npm i axios , instead of axios we can also use fetch but axios has many advantages so axios hi use karnege to connect frontend with backend.
+
+Now import axios using import axios from 'axios' command inside App.jsx file.
+
+Now we want ki jaise hi we run or load our frontend to usi samay hume data mil jaha in the frontend, so for that we will use useEffect. useEffect will take a callback inside which we will pass the get request to axios passing the specific backend url jaha se data ko fetch karna hai aur agar successufully fetch ho jata hai to we will get response and reponse jaisa bhi aye like json wagerah wo apne aap handle ho jata hai to directly setJokes ko set kardo by setJokes(response.data)
+
+If now you will run the application frontend and backend so in frontend when you will inspect you will get a Cors policy error (which is Cross Origin ) Cors provide safety , because Cors kisi bhi frontend ko req nahi karne deta hai to server, inorder to make a valid req hume url ko whitelist karte hai , like in this case localhost:3000/jokes ko white list karna padega taki ispe req send kar sake .For that we need to install cors package in our backend then we need to import it in backend and then we can write app.cors() , you can see on the internet for this .Here we will not use this . 2nd solution is using proxies.  Dekho concept ye hai ki backend mein directly routes /jokes aese nahi likhe jate hai ek standard practise ko follow karna padata hai like /api/jokes likh k so here we will write /api/jokes. Now in frontend localhost:3000/jokes har baar itna bada url nhi likhte hum we can simply write 'api/jokes' now this url does not exist so here comes the concept of proxies so for that we will search in net proxies for vite react so we cam to knew that directly in vite.config.js file mein we will write server:{
+proxy:{
+  '/api':'http://localhost:3000',
+}
+} inside define config
+
+this means ki jab bhi frontend mein koi bhi req /api wali hogi to uske aage apne aap ye url http://localhost:3000 add ho jayega so we don't need to write http://localhost:3000 baar baar so this is the use of proxy and we will not get any cors error after this .
+
+Now ab using this proxy server ko lagega ki ye jo request hai wo usi host port 3000 se aa rahi hai.
+  

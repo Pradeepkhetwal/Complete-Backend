@@ -1,0 +1,3 @@
+At first we will create backend folder then we will run npm init command then we will have package.json file then we will install express js by npm i express then we will create server.js file and we will add start script in package.json file and we will create server routes in server.js file.
+
+From here move to server.js file
