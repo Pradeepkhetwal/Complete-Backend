@@ -1,0 +1,18 @@
+here we simply initialize the project first by npm init command . Then manually we created src(source) folder, inside which we created app.js file, constants.js, index.js file. Similaraly inside src we also have created folders controllers(here we have functions) , db(here we connect the code to the database), middlewares,models,routes,utils(it is for utilites means it is for utilites like mailing , fileuploading , tokens lena dena and all)
+
+Note-: git does not push empty folder to the repo.
+
+Then we created .env file to store environment variables.
+
+The we created a .gitingore file.
+
+Then we made changes in pakcage.json file which include.
+1."dev":"nodemon src/index.js" adding this script which means nodemon will rerun the file index.js present inside src after every save.
+
+2."type":"module" this will allow us to write the import statement while including modules like express and all.
+
+Note-: developement k liye please install an extension prettier by npm i -D prettier as it is a dev dependency.
+
+we create a file .prettierrc in which we will have configuration for prettier.
+
+There is a file called as .prettierignore in which we mention those files jinko prettier bilkul na chede.like node modules , env file ,etc
