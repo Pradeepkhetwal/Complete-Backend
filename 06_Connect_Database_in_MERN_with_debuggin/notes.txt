@@ -1,0 +1,24 @@
+set up new project in mongodb atlas , then add an ip there in network Access option go and add ip access to all it will automatically add 0.0.0.0 ip there.
+
+then goto cluster and click on connect then choose any , i have chosen atlas then simply copy the mongodb uri link from there(no need to click or install or anything) then replace the password from the link with your actual password when you write the uri in the .env file.
+
+So in .env file first we add port and then mongo uri (don't forget to remove the last / from the link of mongo)
+
+please install dotenv package.
+
+now in constants.js file we add a const and export it this const contains the name of our database of our application.
+i.e export const DB_NAME = "videotube".
+
+install mongoose , and express package 
+
+Now to connect with database we have 2 approaches . 
+
+1st approach where the code to connect with the database is kept in the index.js file (as this file is the file to be executed first).
+
+2nd approach is that where we keep function to connect to database inside the db folder in a file and then we call that function in index.js file.
+
+Note-: while connecting with db always use try catch or promise in order to handle error. And also asyn await is must.
+
+Here we will use 2nd approach because it is the best.
+
+Now we will goto db and inside it we will create an index.js file (you can choose any name you want) form here now move there.

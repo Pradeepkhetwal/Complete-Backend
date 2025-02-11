@@ -1,10 +1,11 @@
 {
-  "name": "04_setup_professional_backend_project",
+  "name": "06_connect_database_in_mern_with_debuggin",
   "version": "1.0.0",
-  "type": "module",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "dev": "nodemon src/index.js"
+    "dev":"nodemon -r dotenv/config --experimental-json-modules src/index.js"
+    
   },
   "author": "",
   "license": "ISC",
