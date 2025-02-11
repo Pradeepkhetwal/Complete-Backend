@@ -1,0 +1,14 @@
+{
+  "name": "04_ecommerce_and_hospital_management_data_modelling",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "mongoose": "^8.10.0"
+  }
+}
