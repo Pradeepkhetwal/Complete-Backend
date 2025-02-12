@@ -1,0 +1,12 @@
+Dekho here subse pehle we created user and vido model for our project which are created inside the models folder.
+
+Then we will use a special package i.e mongoose-aggregate-paginate-v2 mongoose ka asli power aggregation pipeline mein hai jo ki iss package k installation ki wajah se milega humko
+we will import this in video model
+
+We will install 2 package bcrypt(used to hash password and used to store encoded password in database), another is jsonwebtoken(used to create token).
+
+Now import this bcrypt and jwt in user model.js.
+
+Jwt is a bearer token means jiske pass token hai usko data bhej do.
+
+Please move to uesrmodel from here
