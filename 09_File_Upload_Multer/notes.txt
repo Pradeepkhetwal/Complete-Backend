@@ -1,0 +1,8 @@
+To upload file first we neet to install a package called multer.
+
+Also we will use cloudinary , so for that npm install cloudinary and also.
+
+So in this lecture first we will first use multer to upload file to local storage then from that local storage we will upload that file to cloudinary , after uploading that file to the cloudinary we will delete that file from local storage, now for that we will require file system that is provided by nodejs in its fs module.
+
+So we will create a file cloudinary.js inside utils folder where we will write the code to upload the file to cloudinary, so goto there from here. then We will make a middleware using multer.So we will create middleware inside multer.middleware.js  file which is inside middleware folder so at last goto there.
+
