@@ -1,0 +1,31 @@
+sabse pehle app.js file which in previous lec we created inside the utils folder ,inside this file we will create an app using express ,then we will export that app.
+
+Here we will install  packages - cookieparser and cors.
+
+Now in app.js we will import cors and cookieparser , now these require configuration as well so we can configure using app.use to wahi kiya hai humne.
+
+app.use is also used for middlewares.
+
+cookieparser is used to access the cookies of the server.
+
+Also in index.js file jo connectdb function hai that is asynchronous so it will always return a promise as it is asynchronous function so we need to write condition when promise is fulfilled and what happens if it does not fulfilled. So please check it out at index.js file it is explained well there.
+
+Now as we observed that the function connectdb is a asyn function that undergoes try catch block so instead of writing each time the same try catch block we can write a wrapper function that could be useful or could act as a template , where we simply call that function and it will provide us with try catch handler so we will write this function in utils folder inside the file aysnHandler.js
+
+We have 2 ways to write this wrapper one is made commented in that file and other is not commented , then one which is not commented will be used further, but jo easy lage tum bas wo samajh lo.
+
+Now we will make a file ApiError.js file jisme we will standarize the api error means that whenever we are returning error in catch block like this catch(err){
+  res.status(err.code || 500).json({
+    success:false,
+    message:err.message
+  })
+}
+
+here we don't need to remember ki pehle we will return the status code of error then false flag , then message , isko bhi hum standarize kar skte hai 
+
+So node js provide a full class to handle apierror to simply we will extends these class and will override the constructor of that class and simply ho jayega.
+
+Similarly we will handle api response as well.
+Look this is advance stuff no need to worry.even if you find it tough.
+
+
