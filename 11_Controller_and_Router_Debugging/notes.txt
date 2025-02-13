@@ -1,0 +1,5 @@
+Here we simply Created user controller .To directly goto controllers folder and check out user.controller.js which we have created in this lecture.
+
+Now inside the routes folder we will create user.routes.js file in that folder inside which we will write the code to create a route (is route pe jake pe can invoke our controller ) from here goto user.route.js
+
+Now we will connect this route to app.js file import the router from user.routes.js file by the name userRouter.From here Goto app.js file
