@@ -1,0 +1,27 @@
+HTTP (hyper text transfer protocol) is a protocol that deals with the transference of text of any network
+
+
+It consist of many headers(these are metadata, or we can say key -value sent along with request and response) and methods(like get , delelte,put ,post etc)
+
+
+HTTPS(is a bit advance protocol than HTTP it basically encrpyts the data that is to be send).
+
+We have Request Header from client.
+We have Response Header from server.
+
+HTTP status code.
+
+1XX code starting from 1 reprents some information.
+2XX code starting from 2 reprents success
+3XX code starting from 3 reprents Redirection.
+4XX code starting from 4 reprents  Cient Error
+5XX code starting from 1 reprents Server Error.
+
+Examples -: 100 Continue.
+102 Processing.
+200 OK.
+201 Created.
+400 Bad request.
+404 Not Found.
+500 Internal Server Error.
+504 Gateway timeout.
