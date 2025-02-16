@@ -1,3 +1,5 @@
 import multer middleware in routes.(user.routes.js)
 
 Now we will use this middleware just before calling the registeruser controller so we want to upload avatar , and coverimages so we will use upload.fileds this fields method of upload middleware (multer) takes an array of objects here we create 2 objects first for avatar and other for coverImage , now we can also set the maxCount of these images as well max count 1 means ek hi upload hogi. apart from fileds we have other methods as well to upload single file , and other things as well so remember when we want to upload multiple files we just use this .fields method.
+
+Here we have complete the user register controller(i.e user.controller.js) so please check it out

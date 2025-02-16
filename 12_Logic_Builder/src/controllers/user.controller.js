@@ -22,7 +22,7 @@ const registerUser = assyncHandler(async (req, res) => {
   //To check whether user exist or not first import user from model folder.
 
   //now this User is directly connected to db so we can use findOne method to check if the user already exists or not 
- const existedUser = User.findOne({
+ const existedUser =await User.findOne({
     //by using dollar $ we can use operator.
    //inside this [] bracket we can pass as many as entities.
    //it will check whether in db the user with this username or email exist karta hai ki nahi if it does it will return true , if does not then return false.It is or operator so dono mein se ek bhi agar exist karega in db so it will return true.
@@ -41,7 +41,7 @@ const registerUser = assyncHandler(async (req, res) => {
 
 
   //path for cover image
-  const coverImageLocalPath = req.files?.converImage[0]?.path;
+  const coverImageLocalPath = req.files?.coverImage?.[0]?.path;
 
   //now we need to check for avatar hai ki nahi in local path.
   if (!avatarLocalPath) {
@@ -93,13 +93,6 @@ const registerUser = assyncHandler(async (req, res) => {
   return res.status(201).json(
     new ApiResponse(200, createUser, "user registered successfully")
   )
-  
-
- 
 })
-
-
-
-
 
 export {registerUser}
