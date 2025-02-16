@@ -4,6 +4,7 @@ import { assyncHandler } from "../utils/asynHandler.js"
 import {ApiError} from "../utils/ApiError.js"
 import { User } from "../models/user.model.js"
 import { uploadOnCloudinary } from "../utils/cloudinary.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
 const registerUser = assyncHandler(async (req, res) => {
   //This registerUser will do these things.
   //1.get user details from frontend.
@@ -47,7 +48,7 @@ const registerUser = assyncHandler(async (req, res) => {
     throw new ApiError(400, "Avatar file is required");
   }
 
-  //upload them to cloudinary,avatar
+  //5 .upload them to cloudinary,avatar
 
   // to upload first import cloudinary upload method.is method ko simply hum local path denge aur ye use cloudinary mein upload kar dega.
   //it will take time so we will use await.
@@ -61,7 +62,7 @@ const registerUser = assyncHandler(async (req, res) => {
     throw new ApiError(400, "Avatar file is required ");
   }
 
-  //now create user object then create entry in db.
+  //6. now create user object then create entry in db.
   //create method se hum user create kar lete hai inside it we can pass the fields of the user.
 
   //now this creation of user might take some time so we wrap it inside await function.
@@ -75,11 +76,24 @@ const registerUser = assyncHandler(async (req, res) => {
     password,
     username:username.toLowerCase()
  })
-  //agar user mil gya to user create hua tha pehle se ._id automatic generate karta hai mongo , user create nahi hua hai to 
-  User.findById(user._id)
-  //remove password and refresh token field from response.
+  //agar neeche user mil gya to user create hua tha pehle se, ._id automatic generate karta hai mongo , user create nahi hua hai to kuch nahi ayega, Now we have a select method as well that allow us to select a specfic field from the user, here we basically mention those fileds which we does not want so these fields are passed as a string with - sign, so here we don't want password and refreshToken so we have passed them.
+  const createUser = await User.findById(user._id).select(
+    "-password -refreshToken"
+  )
+
+  if (!createUser) {
+    throw new ApiError(500, "Something went wrong while registering the user");
+  }
+
+  //7 remove password and refresh token field from response.
   //check for usercreation.
   //return response if user is created.
+
+  // finally we will return the created user with the help of API response that we have created in utils folder , it will help us to return the response in an structured manner(means we can send statuscode,response,message) . So we are returning it.
+  return res.status(201).json(
+    new ApiResponse(200, createUser, "user registered successfully")
+  )
+  
 
  
 })
