@@ -1,0 +1,7 @@
+Refresh token - ye long live karta hai , it is also stored in the database as well.
+
+Access token - It is short lived , after a fixed time ye expire ho jata hai .
+
+access token is generally used to avail the serivce that an authenticate user is allowed to , for ex-: user jo ki signin karega kisi portal mein to usko ek access token milega.Which will allow user to acess multiple serices across the portal.
+
+Agar user k pass Refresh token hai jo ki match karta hai database mein stored refresh token se to new access token can be provided to the user when the existing access token is expired.
