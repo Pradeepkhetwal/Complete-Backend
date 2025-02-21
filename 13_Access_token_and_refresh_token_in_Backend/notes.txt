@@ -5,3 +5,6 @@ Access token - It is short lived , after a fixed time ye expire ho jata hai .
 access token is generally used to avail the serivce that an authenticate user is allowed to , for ex-: user jo ki signin karega kisi portal mein to usko ek access token milega.Which will allow user to acess multiple serices across the portal.
 
 Agar user k pass Refresh token hai jo ki match karta hai database mein stored refresh token se to new access token can be provided to the user when the existing access token is expired.
+
+
+Here we will write login and logout functions inside user.controller , for that we will be required to have Refresh and access tokens, also we have added those controller functions to new routes in user.routes.js file please check them("/login") and all. so for that please move to user.controller.js file
