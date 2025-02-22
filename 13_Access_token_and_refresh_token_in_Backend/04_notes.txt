@@ -1,0 +1,3 @@
+Lec 20. MongoDb Aggregation Pipeline.
+
+Pipeline consist of various stages where the output of each stages is the input to other . So here in user.controller.js we have writter a function/controller for channel with the nameGetUserChannelProfile so go there directly.

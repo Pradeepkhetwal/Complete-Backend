@@ -257,7 +257,7 @@ const refreshAccessToken = assyncHandler(async (req, res) => {
 
 })
 
-
+//function to change user password.
 const changeCurrentPassword = assyncHandler(async (req, res) => {
   const { oldPassword, newPassword } = req.body
   
@@ -278,8 +278,10 @@ const changeCurrentPassword = assyncHandler(async (req, res) => {
   return res.status(200).json(new ApiResponse(200,{},"Password changed Successfully!"))
 })
 
+//function to get current user.
+//so as we know if the user is logged in so auth middleware is active, and in that we have stored user in the req.user , so from req itself we can get user.
 const getCurrentUser = assyncHandler(async (req, res) => {
-  return res.status(200).json(200,req.user,"current user fetched successfully")
+  return res.status(200).json(new ApiResponse(200,req.user,"current user fetched successfully"))
 })
 
 const updateAccountDetails = assyncHandler(async (req, res) => {
@@ -360,4 +362,95 @@ const updateUserCoverImage = assyncHandler(async (req, res) => {
     new ApiResponse(200,user,"Cover image updated successfully")
   )
 })
-export {registerUser,loginUser,logoutUser,refreshAccessToken,getCurrentUser,updateAccountDetails,updateUserAvatar,updateUserCoverImage}
+
+//here in this function we will merge the user and subscription model data and will return the required details for the channels as the channel requires joining of both user and subscription model.
+const getUserChannelProfile = assyncHandler(async (req, res) => {
+  //kisi bhi channel ki profile hume url se dikhti hai. so here also we will get username of channel from params(means from url).
+  const { username } = req.params;
+
+  if (!username?.trim()) {
+    throw new ApiError(400,"username is missing")
+  }
+
+  //aggregate method takes array as an argument inside this array we have {},{}.. each curley bracket represent each stage.
+  //ye (aggregate) function always returns arrays.
+  const channel = await User.aggregate([{
+    //1st pipeline/stage we are using is match , this generally is used to match, so here we specify kya match karna hai.
+    //so here we are matching username.
+    //Look here all these $match, $lookup,$addFields,$size,$cond,$project all are mongodb operators with different different functionality.
+    $match: {
+      username: username?.toLowerCase();
+    }
+},
+{
+  //2nd pipeline or 2nd stage we are using here is lookup,which is used to check ki hum kaha pe dekhe means kis dusre table(model) mein dekhna hai.
+  // so lookup usually takes many parameters the first one is from where we specify ki kaha pe dekhna hai.
+  //now model ka naam becomes lowercase and plural in mongodb warna real name to Subscription tha.
+  // 2nd parameter is local field ye ek aesa column ya field hai jo currently aapki document  mein present hai , means jis bhi table / ya db mein currently aap ho. Another is foreginfield which is bascially the field in the subscription document (jis document mein hum dekh rahe hai uski field hai ye).
+  //as here refer to kya naam dena chahte ho final result ko means lookup perform karke jo final result ayega wo ek array hoga of name subscribers jiske 0th index pe required data hoga .
+$lookup: {
+    from: "subscriptions",
+    localField: "_id",
+    foreignField: "channel",
+    as:"subscribers"
+  }
+    },
+    
+    {
+      //this pipeline for ki channel ne kitno ko subscribe kiya hai.
+  $lookup: {
+        from: "subscriptions",
+        localField: "_id",
+        foreignField: "subscriber",
+        as:"subscribedTo"
+      }
+    }, {
+      //this addFields operators is used to create new fields so here we haev created a field subscribersCount that stores the value of count of subscribers and another field  channerisSubscribedToCount is also created and one more field isSubscribed is also created .
+      $addFields: {
+        subscribersCount: {
+          //size operator counts karta hai size ko so here subscribers field will be counted.
+         $size:"$subscribers"
+        },
+        channerisSubscribedToCount: {
+          //it will count number of channels to which user/channel is susscribed to.
+          $size:"$subscribedTo"
+        },
+        //it will return true if channel is subscribed , so it will be used in frontend jisse subscribe button will 
+        //change to subscribed.
+        isSubscribed: {
+          //cond operator take if, then and else inside it.
+          //here in operator se hum check karre hai ki jo humara user hai wo subscribers field mein as a subscriber listed hai ya nahi if yes then our user has subscribed to that channel so then true karo else false karo if not subscribed.
+          $cond: {
+            if: { $in: [req.user?._id, "$subscribers.subscriber"] },
+            then: true,
+            else:false
+          }
+        }
+      }
+    },
+    //now in this pipeline we will provide only the selected things 
+    {
+      $project: {
+        //here we will provide these fields , jis bhi field ko dena hai uske aage 1 likh do simply bss.
+        //finally channel k data k liye ye ye return hoga .
+        //fullname , username,avatar,coverImage,email these fields are from user model baki tumhe pata hi hai kaha upar aggregation se banaye hai.
+        fullName: 1,
+        username: 1,
+        subscribersCount: 1,
+        channerlsSubscribedToCount: 1,
+        isSubscribed: 1,
+        avatar: 1,
+        coverImage: 1,
+        email:1
+      }
+    }
+  ])
+
+  if (!channel?.length) {
+    throw new ApiError(404, "channel does not exist");
+  }
+
+  //aggregate return karta hai array aur uske 0th index pe humara user hai , jo ki 1 hi hai so baki index empty hai uske.
+  return res.status(200).json(new ApiResponse(200,channel[0],"user channel fetech successfully"))
+})
+export {registerUser,loginUser,logoutUser,refreshAccessToken,getCurrentUser,updateAccountDetails,updateUserAvatar,updateUserCoverImage,getUserChannelProfile}
