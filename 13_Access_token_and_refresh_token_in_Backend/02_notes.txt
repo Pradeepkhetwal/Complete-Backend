@@ -1,0 +1,3 @@
+We are going to create an endpoint(route) which will generate new acess token for the user if the current access token of the user is expired. So for this we will use the refresh token which the user has and try to match it with the refresh token that is stored in the database so that user can be authenticated and new access token can be provided.
+
+So for the above we have created refreshAccesstoken Function in user.controller.js file and we have added a route to invoke this function in the user.routes.js file

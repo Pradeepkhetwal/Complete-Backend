@@ -1,5 +1,5 @@
 import { v2 as cloudinary } from 'cloudinary'
-
+import fs from 'fs'
 
 
 // This Configuration is directly copied from my cloudinary account , you will see this at let's get started page.

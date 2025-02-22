@@ -1,10 +1,10 @@
-import { ApiError } from "../utils/ApiError";
-import { assyncHandler } from "../utils/asynHandler";
+import { ApiError } from "../utils/ApiError.js";
+import { assyncHandler } from "../utils/asynHandler.js";
 import jwt from "jsonwebtoken";
-import { User } from "../models/user.model";
+import { User } from "../models/user.model.js";
 
 // we will use this middleware in logout route.
-export const verifyJWT = assyncHandler(async (req, res, next) => {
+ const verifyJWT = assyncHandler(async (req, res, next) => {
   try {
     // we can get access token from the req or from the header.
     //Header mein agar cookie hoti hai to basically key value pair generate hota hai with key as Authorization and Bearer space tokenkeyvalue as the key
@@ -35,4 +35,6 @@ export const verifyJWT = assyncHandler(async (req, res, next) => {
     throw new ApiError(401, error?.message || "Invalid access token ")
   }
   
-})
+ })
+
+ export {verifyJWT}
