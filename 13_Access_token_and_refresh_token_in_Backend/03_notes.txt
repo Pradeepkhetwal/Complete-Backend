@@ -1,0 +1,1 @@
+Now in this lecture we are going to add an subsciption model in our project.
