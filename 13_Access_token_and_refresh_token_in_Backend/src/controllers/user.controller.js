@@ -379,7 +379,7 @@ const getUserChannelProfile = assyncHandler(async (req, res) => {
     //so here we are matching username.
     //Look here all these $match, $lookup,$addFields,$size,$cond,$project all are mongodb operators with different different functionality.
     $match: {
-      username: username?.toLowerCase();
+      username: username?.toLowerCase()
     }
 },
 {
@@ -452,5 +452,61 @@ $lookup: {
 
   //aggregate return karta hai array aur uske 0th index pe humara user hai , jo ki 1 hi hai so baki index empty hai uske.
   return res.status(200).json(new ApiResponse(200,channel[0],"user channel fetech successfully"))
+})
+
+//controller to get watchHistory of any user.
+const getWatchHistory = assyncHandler(async (req, res) => {
+  //object id se match karra rahe hai pehle.
+  const user = await User.aggregate([
+    {
+      $match: {
+       _id:new mongoose.Types.ObjectId(req.user._id)
+     }
+    },
+    //here we first look at the videos  videos and then inside we again have owner so owner is also a user , so here we have to use a pipline inside this lookup to look into user from owner .
+    {
+      $lookup: {
+        from: "videos",
+        localFields: "watchHistory",
+        foreignFields: "_id",
+        as: "watchHistory",
+        //subpipeline.Har ek lookup k saath we can have pipeline.
+        pipeline: [
+          {
+            $lookup: {
+              from: "users",
+              localField: "owner",
+              foreignField: "_id",
+              as: "owner",
+              
+              pipeline: [
+                {
+                  $project: {
+                    fullName: 1,
+                    username: 1,
+                    avatar:1
+                  }
+                },
+                //finally to organize the final data we added a field whose name we choose as owner itself.
+                //now wese to hum array k first element ko fetch karte hai for final output but here we will use a easier solution to get data , as owner k field mein saara data aya hai jisme ek array hoga jiske andar value hogi so here owner ko ek field ko assign kar do. To seedhe owner ko first value assign kar lo from owner field. 
+                {
+                  $addFields: {
+                    owner: {
+                      $first:"$owner"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        ]
+     }
+   }
+  ])
+  
+  return res.status(200).json(new ApiResponse(
+    200, user[0].watchHistory,
+    "watch history fetched successfully"
+  ))
 })
 export {registerUser,loginUser,logoutUser,refreshAccessToken,getCurrentUser,updateAccountDetails,updateUserAvatar,updateUserCoverImage,getUserChannelProfile}

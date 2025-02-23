@@ -1,0 +1,3 @@
+Here we have wrote the controller to get the watch history in the usre.controller.js file where we have use mongodb aggregation jisse we looked from users to videos and in videos there was owner so owner bhi ek user hai to ek aur pipeline use ki uske andar again we looked into user. 
+
+From here move to the code.
