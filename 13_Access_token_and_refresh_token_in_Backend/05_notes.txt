@@ -1,3 +1,4 @@
 Here we have wrote the controller to get the watch history in the usre.controller.js file where we have use mongodb aggregation jisse we looked from users to videos and in videos there was owner so owner bhi ek user hai to ek aur pipeline use ki uske andar again we looked into user. 
 
+Also we have added routes in user.routes.js file , routes of changepassword se leke last tak jitne routes dikh rahe hai utne add kiye hai upto (/history) route.(route to get user history)
 From here move to the code.
