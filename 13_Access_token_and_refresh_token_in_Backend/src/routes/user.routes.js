@@ -33,7 +33,7 @@ router.route("/update-account").patch(verifyJWT, updateAccountDetails);
 //here upload.single means we are uploading a single file. you can give any name to the file inside the strings
 //here we have given avatar and cover image. patch ka concept I have explained in above route.
 router.route("/avatar").patch(verifyJWT, upload.single("avatar"), updateUserAvatar);
-router.route("/cover-image").patch(verifyJWT, upload.single("/coverImage"), updateUserCoverImage)
+router.route("/cover-image").patch(verifyJWT, upload.single("coverImage"), updateUserCoverImage)
 
 //ab params mein se le rahe hai.
 // /c rakhna hai ya fir /channel aapki marzi hai
